@@ -18,7 +18,7 @@ if (isset($_GET['user_name']) && (isset($_GET['password']))) {
         $_SESSION["error_info"] = 'Username didn\'t exist or Password didn\'t match!';
         header("Location:Error.php");
     }
-    $_SESSION["username"] = $user_name;
+    $_SESSION["user_name"] = $user_name;
 
 } else {
     header("Location:login.php");
