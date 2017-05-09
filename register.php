@@ -71,6 +71,9 @@
             return false;
         } else {
 //            document.getElementById("password").innerHTML ='md5';
+            <?php
+            $password_en=password_hash(password,PASSWORD_DEFAULT);
+            ?>
             return true;
         }
     }
