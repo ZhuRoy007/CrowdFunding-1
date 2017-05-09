@@ -6,13 +6,13 @@ if (!$con) {
 mysqli_select_db($con, "crowdfunding");
 session_start();
 
-//$user_name = $_SESSION["user_name"];
+$user_name = $_SESSION["user_name"];
 $keyword = $_GET['keyword'];
 
-//if ($user_name == "") {
-//    header("Location:login.php");
-//    exit;
-//}
+if ($user_name == "") {
+    header("Location:login.php");
+    exit;
+}
 
 ?>
 
@@ -33,14 +33,20 @@ $keyword = $_GET['keyword'];
     <div style="width: 1200px;background-color: #c6c6c6;border-radius: 10px;margin: 100px auto auto;">
         <div class="container" style="width: 1000px;margin: 50px auto auto">
             <?php
-            echo "<br />";
+
             if ($keyword == null) {
                 $result = mysqli_query($con, "SELECT * FROM project  NATURAL JOIN own  NATURAL JOIN user");
             } else {
                 $result = mysqli_query($con, "SELECT * FROM project  NATURAL JOIN own  NATURAL JOIN user WHERE description LIKE '%{$keyword}%' OR project.project_name LIKE '%{$keyword}%'OR project.category LIKE '%{$keyword}%'");
             }
-
+            echo "<br />";
             echo "Welcome: " . $_SESSION['user_name'];
+            echo "
+                    <a href=\"mainPage.php\">
+                    <button class=\"btn btn-primary\"
+                        style=\"float:right;width: 20%;margin-top: 0;margin-left:20px;height: 30px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen\">Main Page
+                    </button>
+                    </a>";
             echo "<br />";
             echo "<div><h4>
                             <tab>" . "Project Name" . "</tab>

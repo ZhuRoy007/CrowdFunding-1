@@ -1,10 +1,9 @@
 <?php
-$con = mysqli_connect("localhost", "root", "root");
-if (!$con) {
-    die('Could not connect: ' . 'mysqli_error()');
-}
-
-mysqli_select_db($con, "crowdfunding");
+//$con = mysqli_connect("localhost", "root", "root");
+//if (!$con) {
+//    die('Could not connect: ' . 'mysqli_error()');
+//}
+//mysqli_select_db($con, "crowdfunding");
 
 session_start();
 
@@ -32,7 +31,7 @@ if ($user_name == "") {
     </div>
     <div style="width: 400px;height: 600px;background-color: #c6c6c6;border-radius: 10px;margin: 100px auto auto;">
         <div class="container" style="width: 350px;height: 300px;margin: 50px auto auto">
-            <form onsubmit="return validate()" style="margin-top: 40px;padding-top: 10px" action="regResult.php"
+            <form style="margin-top: 40px;padding-top: 10px" action="profileResult.php"
                   method="get">
                 <div class="form-group" align="center" style="margin: 50px auto auto">
                     <label style="font-size: 24px;color:#545657;padding-top: 8px;padding-left: 0;">
@@ -45,12 +44,11 @@ if ($user_name == "") {
                            style="width: 100%;height: 50px;font-size: 18px;border-radius: 5px;text-indent:10px">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="hometown" name="hometown" placeholder="hometown"
+                    <input type="text" class="form-control" name="hometown" placeholder="hometown"
                            style="width: 100%;height: 50px;font-size: 18px;margin-top: 10px;border-radius: 5px;text-indent:10px">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="address" name="address"
-                           placeholder="address"
+                    <input type="text" class="form-control" name="address" placeholder="address"
                            style="width: 100%;height: 50px;font-size: 18px;margin-top: 10px;border-radius: 5px;text-indent:10px">
                 </div>
                 <div class="form-group">
@@ -71,17 +69,4 @@ if ($user_name == "") {
 
 </div>
 </body>
-<!--<script>-->
-<!--    function validate() {-->
-<!--        var password = document.getElementById("password").value;-->
-<!--        var repeat_password = document.getElementById("repeat_password").value;-->
-<!--        if (password !== repeat_password) {-->
-<!--            document.getElementById("sign").innerHTML = 'Inconsistent Passwords';-->
-<!--            return false;-->
-<!--        } else {-->
-<!--            document.getElementById("password").innerHTML = 'md5';-->
-<!--            return true;-->
-<!--        }-->
-<!--    }-->
-<!--</script>-->
 </html>

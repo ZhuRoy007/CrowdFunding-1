@@ -9,10 +9,12 @@ session_start();
 $user_name = $_SESSION["user_name"];
 $project_id = $_GET['project_id'];
 
-//if ($user_name == "" || 'project_id' == "") {
-//    header("Location:error.php");
-//    exit;
-//}
+if ($user_name == "" || $project_id == null) {
+    header("Location:login.php");
+    exit;
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +48,12 @@ $project_id = $_GET['project_id'];
 
             echo "<br />";
             echo "Welcome: " . $_SESSION['user_name'];
+            echo "
+                    <a href=\"mainPage.php\">
+                    <button class=\"btn btn-primary\"
+                        style=\"float:right;width: 20%;margin-top: 0;margin-left:20px;height: 30px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen\">Main Page
+                    </button>
+                    </a>";
             echo "<br />";
             echo "<div><h4><tab>" . "Project Name" . "</tab></h4></div>";
             echo "<div>
