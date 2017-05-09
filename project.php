@@ -45,7 +45,7 @@ session_start();
             $amount = mysqli_fetch_array($amount);
 
             echo "<br />";
-            echo "Welcome: " . $_SESSION['username'];
+            echo "Welcome: " . $_SESSION['user_name'];
             echo "<br />";
             echo "<div><h4><tab>" . "Project Name" . "</tab></h4></div>";
             echo "<div>
