@@ -44,7 +44,7 @@ if (isset($_GET['user_name']) && (isset($_GET['password'])) && (!isset($_SESSION
         <div class="container" style="width: 800px;margin: 50px auto 50px">
             <?php
             echo "<br />";
-            echo "Welcome: " . $_SESSION['user_name'];
+            echo "Welcome: <a href='profile.php' style='text-decoration: none;color: #3c3f41'>" . $_SESSION['user_name'] . "</a>";
             echo "
             <a href=\"newProject.php\">
                 <button class=\"btn btn-primary\"

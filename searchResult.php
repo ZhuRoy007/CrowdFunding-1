@@ -40,7 +40,7 @@ if ($user_name == "") {
                 $result = mysqli_query($con, "SELECT * FROM project  NATURAL JOIN own  NATURAL JOIN user WHERE description LIKE '%{$keyword}%' OR project.project_name LIKE '%{$keyword}%'OR project.category LIKE '%{$keyword}%'");
             }
             echo "<br />";
-            echo "Welcome: " . $_SESSION['user_name'];
+            echo "Welcome: <a href='profile.php' style='text-decoration: none;color: #3c3f41'>" . $_SESSION['user_name'] . "</a>";
             echo "
                     <a href=\"mainPage.php\">
                     <button class=\"btn btn-primary\"

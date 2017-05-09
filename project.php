@@ -47,7 +47,7 @@ if ($user_name == "" || $project_id == null) {
             $amount = mysqli_fetch_array($amount);
 
             echo "<br />";
-            echo "Welcome: " . $_SESSION['user_name'];
+            echo "Welcome: <a href='profile.php' style='text-decoration: none;color: #3c3f41'>" . $_SESSION['user_name'] . "</a>";
             echo "
                     <a href=\"mainPage.php\">
                     <button class=\"btn btn-primary\"
