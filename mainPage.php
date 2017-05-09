@@ -21,8 +21,8 @@ if (isset($_GET['user_name']) && (isset($_GET['password']))) {
     $_SESSION["user_name"] = $user_name;
 
 } else {
-//    header("Location:login.php");
-//    exit;
+    header("Location:login.php");
+    exit;
 }
 ?>
 
