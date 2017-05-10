@@ -57,8 +57,8 @@ if_charged = 0;");
                 </div>
                 <div class="form-group" align="center" style="margin: 50px auto auto">
                     <label style="font-size: 24px;color:#545657;padding-top: 8px;padding-left: 0;">
-                        <h5 style="color: #545657;line-height: 50px;margin: 0" align="center">Congratulations, you've
-                            created a new project!</h5>
+                        <h5 style="color: #545657;line-height: 50px;margin: 0" align="center">Thank you, you've
+                            donated the project!</h5>
                     </label>
                 </div>
                 <button type="submit" class="btn btn-primary"
