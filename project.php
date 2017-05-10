@@ -38,11 +38,6 @@ if ($user_name == "" || $project_id == null) {
             $project = mysqli_query($con, "SELECT * FROM project  NATURAL JOIN own  NATURAL JOIN user WHERE project.project_id = '{$project_id}';");
             $amount = mysqli_query($con, "SELECT sum(amount) AS amount FROM sponsor  WHERE project_id =  '{$project_id}';");
 
-            //            if (!$detail = mysqli_fetch_array(mysqli_query($con, "SELECT * FROM product WHERE product.pname = '{$itemname}' AND pstatus='available'"))) {
-            //                header("Location:unavailable.php");
-            //                exit;
-            //            }
-
             $row = mysqli_fetch_array($project);
             $amount = mysqli_fetch_array($amount);
 
@@ -79,7 +74,6 @@ if ($user_name == "" || $project_id == null) {
             echo "<h4>Sample</h4>";
             echo "<br />";
             echo $row['sample'];
-
 
             echo "
             
