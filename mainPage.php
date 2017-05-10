@@ -7,7 +7,7 @@ session_start();
 
 mysqli_select_db($con, "crowdfunding");
 
-if (isset($_GET['user_name']) && (isset($_GET['password']))) {
+if (isset($_GET['user_name']) && (isset($_GET['password'])) && (!isset($_SESSION['user_name']))) {
     $user_name = $_GET['user_name'];
     $password = $_GET['password'];
 
@@ -19,8 +19,8 @@ if (isset($_GET['user_name']) && (isset($_GET['password']))) {
         header("Location:Error.php");
     }
     $_SESSION["user_name"] = $user_name;
-
-} else {
+    $_SESSION["logged_in"] = true;
+} elseif (!$_SESSION['logged_in']) {
     header("Location:login.php");
     exit;
 }
@@ -42,6 +42,17 @@ if (isset($_GET['user_name']) && (isset($_GET['password']))) {
     </div>
     <div style="width: 1000px;background-color: #c6c6c6;border-radius: 10px;margin: 100px auto auto;">
         <div class="container" style="width: 800px;margin: 50px auto 50px">
+            <?php
+            echo "<br />";
+            echo "Welcome: <a href='profile.php' style='text-decoration: none;color: #3c3f41'>" . $_SESSION['user_name'] . "</a>";
+            echo "
+            <a href=\"newProject.php\">
+                <button class=\"btn btn-primary\"
+                style=\"float: right;width: 30%;margin-left:20px;height: 30px;font-size: 15px;border-radius: 5px;color: whitesmoke;background-color: forestgreen\">Creat A New Project
+                </button>
+            </a>";
+            ?>
+
             <form style="margin-top: 40px;padding-top: 10px" action="searchResult.php" method="get">
                 <input type="text"
                        style="margin-top: 40px;height: 40px;font-size: 20px;border-radius: 5px;margin-left: 20px"
@@ -52,17 +63,17 @@ if (isset($_GET['user_name']) && (isset($_GET['password']))) {
                 </button>
             </form>
 
-<!--            <form style="margin-top: 0px;padding-top: 10px" action="project.php" method="get">-->
-<!--                <tab style='float: left;margin-top: 25px;height: 50px;font-size: 20px;border-radius: 5px'><h4>-->
-<!--                        </h4></tab>-->
-<!--                <input type="text"-->
-<!--                       style="margin-top: 40px;height: 40px;font-size: 20px;border-radius: 5px;margin-left: 20px"-->
-<!--                       required="required">-->
-<!--                <button type="submit" class="btn btn-primary"-->
-<!--                        style="width: 50%;margin-top: 40px;margin-left: 20px;height: 50px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen">-->
-<!--                    Search User-->
-<!--                </button>-->
-<!--            </form>-->
+            <!--            <form style="margin-top: 0px;padding-top: 10px" action="project.php" method="get">-->
+            <!--                <tab style='float: left;margin-top: 25px;height: 50px;font-size: 20px;border-radius: 5px'><h4>-->
+            <!--                        </h4></tab>-->
+            <!--                <input type="text"-->
+            <!--                       style="margin-top: 40px;height: 40px;font-size: 20px;border-radius: 5px;margin-left: 20px"-->
+            <!--                       required="required">-->
+            <!--                <button type="submit" class="btn btn-primary"-->
+            <!--                        style="width: 50%;margin-top: 40px;margin-left: 20px;height: 50px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen">-->
+            <!--                    Search User-->
+            <!--                </button>-->
+            <!--            </form>-->
             <br/>
             <br/>
 

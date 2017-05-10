@@ -47,7 +47,7 @@ $ins = mysqli_query($con, "INSERT INTO crowdfunding.user (user_name, email, cred
     </div>
     <div style="width: 400px;height: 450px;background-color: #c6c6c6;border-radius: 10px;margin: 100px auto auto;">
         <div class="container" style="width: 350px;height: 300px;margin: 50px auto auto">
-            <form style="margin-top: 40px;padding-top: 10px" method="post">
+            <form style="margin-top: 40px;padding-top: 10px" method="post" action="login.php">
                 <div class="form-group" align="center" style="margin: 50px auto auto">
                     <label style="font-size: 24px;color:#545657;padding-top: 8px;padding-left: 0;">
                         <h4 style="color: #545657;line-height: 50px;margin: 0" align="center">Success</h4>
@@ -58,8 +58,8 @@ $ins = mysqli_query($con, "INSERT INTO crowdfunding.user (user_name, email, cred
                         <h5 style="color: #545657;line-height: 50px;margin: 0" align="center">Congratulations, you've been signed up!</h5>
                     </label>
                 </div>
-                <button onclick="history.go(-1)" type="submit" class="btn btn-primary"
-                        style="width: 100%;margin-top: 102px;height: 50px;font-size: 20px;border-radius: 5px">Back
+                <button type="submit" class="btn btn-primary"
+                        style="width: 100%;margin-top: 102px;height: 50px;font-size: 20px;border-radius: 5px">Back to Login
                 </button>
 
             </form>
