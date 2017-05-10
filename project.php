@@ -74,6 +74,11 @@ if ($user_name == "" || $project_id == null) {
             echo "<h4>About this project</h4>";
             echo "<br />";
             echo $row['description'];
+            echo "<br />";
+            echo "<br />";
+            echo "<h4>Sample</h4>";
+            echo "<br />";
+            echo $row['sample'];
             mysqli_close($con);
             ?>
             <form style="margin-top: 40px;padding-top: 10px" action="donateResult.php" method="get">
@@ -85,12 +90,6 @@ if ($user_name == "" || $project_id == null) {
                     Project
                 </button>
             </form>
-            <!--            <a href="startPage.php">-->
-            <!--                <button class="btn btn-primary"-->
-            <!--                        style="width: 100%;margin-top: 20px;height: 50px;font-size: 20px;border-radius: 5px">Back to-->
-            <!--                    Start Page-->
-            <!--                </button>-->
-            <!--            </a>-->
             <br/>
             <br/>
             <h4>Discussions</h4>

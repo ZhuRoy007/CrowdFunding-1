@@ -7,7 +7,7 @@ session_start();
 
 mysqli_select_db($con, "crowdfunding");
 
-if (isset($_GET['user_name']) && (isset($_GET['password'])) && (!isset($_SESSION['user_name']))) {
+if (isset($_GET['user_name']) && (isset($_GET['password']))) {
     $user_name = $_GET['user_name'];
     $password = $_GET['password'];
 

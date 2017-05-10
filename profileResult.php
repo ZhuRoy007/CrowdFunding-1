@@ -26,7 +26,7 @@ $upd = mysqli_query($con, "UPDATE crowdfunding.user SET interest ='{$interest}',
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Start</title>
+    <title>Result</title>
 </head>
 <body style="background-color: #3c3f41;font-family: 'Microsoft YaHei UI Light',sans-serif">
 
