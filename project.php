@@ -79,22 +79,30 @@ if ($user_name == "" || $project_id == null) {
             echo "<h4>Sample</h4>";
             echo "<br />";
             echo $row['sample'];
-            mysqli_close($con);
-            ?>
-            <form style="margin-top: 40px;padding-top: 10px" action="donateResult.php" method="get">
-                <tab style='float: left;margin-top: 25px;height: 50px;font-size: 20px;border-radius: 5px'><h4>Donate</h4></tab>
-                <input type="number"  style="margin-top: 40px;height: 40px;font-size: 20px;border-radius: 5px;margin-left: 20px" required="required">
-                <button type="submit" class="btn btn-primary"
-                        style="width: 50%;margin-top: 40px;margin-left: 20px;height: 50px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen">
+
+
+            echo "
+            
+            <form style='margin-top: 40px;padding-top: 10px' action='donateResult.php' method='get'>
+                <tab style='float: left;margin-top: 25px;height: 50px;font-size: 20px;border-radius: 5px'><h4>
+                        Donate</h4></tab>
+                <input type='number'
+                       style='margin-top: 40px;height: 40px;font-size: 20px;border-radius: 5px;margin-left: 20px'
+                       name='amount' required='required'>
+                <button type='submit'
+                        style='width: 50%;margin-top: 40px;margin-left: 20px;height: 50px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen'>
                     Donate This
                     Project
                 </button>
+                <input type='hidden' name='project_id' value='$project_id';>'                
             </form>
             <br/>
             <br/>
             <h4>Discussions</h4>
             <br/>
-            <br/>
+            <br/>";
+            mysqli_close($con);
+            ?>
         </div>
     </div>
 </div>
