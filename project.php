@@ -6,8 +6,8 @@ if (!$con) {
 mysqli_select_db($con, "crowdfunding");
 
 session_start();
-//$user_name = $_SESSION["user_name"];
-//$project_id = $_SESSION['project_id'];
+$user_name = $_SESSION["user_name"];
+$project_id = $_GET['project_id'];
 
 //if ($user_name == "" || 'project_id' == "") {
 //    header("Location:error.php");
@@ -33,8 +33,8 @@ session_start();
         <div class="container" style="width: 800px;margin: 50px auto 50px">
             <?php
             echo "<br />";
-            $project = mysqli_query($con, "SELECT * FROM project  NATURAL JOIN own  NATURAL JOIN user WHERE project.project_id = 1;");
-            $amount = mysqli_query($con, "SELECT sum(amount) AS amount FROM sponsor  WHERE project_id = 1;");
+            $project = mysqli_query($con, "SELECT * FROM project  NATURAL JOIN own  NATURAL JOIN user WHERE project.project_id = '{$project_id}';");
+            $amount = mysqli_query($con, "SELECT sum(amount) AS amount FROM sponsor  WHERE project_id =  '{$project_id}';");
 
             //            if (!$detail = mysqli_fetch_array(mysqli_query($con, "SELECT * FROM product WHERE product.pname = '{$itemname}' AND pstatus='available'"))) {
             //                header("Location:unavailable.php");
