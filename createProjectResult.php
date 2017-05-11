@@ -58,7 +58,7 @@ mysqli_query($con, "INSERT INTO own SET user_id  ={$user['user_id']},project_id 
 $notify_message = $user['user_name'] . " has created a new project: " . $project_name . " at " . date("Y-m-d H:i:s");
 $notify_message = (string)$notify_message;
 mysqli_query($con, "INSERT INTO notification (type, subtype, target_id, message, notify_time)
-    values('project', 'create', {$user['user_id']},'$notify_message' , now());");
+    values('project', 'created', {$user['user_id']},'$notify_message' , now());");
 
 $notify_id = mysqli_query($con, "SELECT notify_id FROM notification WHERE message = '{$notify_message}';");
 $notify_id = mysqli_fetch_array($notify_id);

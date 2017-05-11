@@ -13,10 +13,10 @@ if ($user_name == "") {
     exit;
 }
 
-$user_id = $_GET['user_id'];
+$user_id = $_GET['user_id'];   //$user_id is followed id
 
 $check1 = mysqli_query($con, "SELECT * FROM user WHERE user_name='{$user_name}';");
-$row = mysqli_fetch_array($check1);
+$row = mysqli_fetch_array($check1);  //$raw['user_id'] is user's id and name
 $check2 = mysqli_query($con, "SELECT * FROM follow WHERE followed_id={$row['user_id']} AND user_id= {$user_id};");
 $followed = mysqli_fetch_array($check2);
 
@@ -32,6 +32,28 @@ if (!isset($user_id) || !isset($row)) {
 
 $insert = mysqli_query($con, "INSERT INTO follow SET 
 user_id  ={$user_id},followed_id={$row['user_id']};");
+
+$followed_name = mysqli_fetch_array(mysqli_query($con, "SELECT user_name FROM user WHERE user_id='{$user_id}';"));
+
+$notify_message = $user_name. " has followed " . $followed_name['user_name'] . " at " . date("Y-m-d H:i:s");
+$notify_message = (string)$notify_message;
+mysqli_query($con, "INSERT INTO notification (type, subtype, target_id, message, notify_time)
+    values('user', 'followed', '$user_id','$notify_message' , now());");
+
+$notify_id = mysqli_query($con, "SELECT notify_id FROM notification WHERE message = '{$notify_message}';");
+$notify_id = mysqli_fetch_array($notify_id);
+
+$who_followed = mysqli_query($con, "SELECT user_id from follow WHERE followed_id='{$row['user_id']}';");
+
+if (mysqli_num_rows($who_followed) > 0) {
+    // output data of each row
+    while($tuple = mysqli_fetch_assoc($who_followed)) {
+        mysqli_query($con, "INSERT INTO user_notify SET user_id  ={$tuple['user_id']},notify_id ={$notify_id['notify_id']},if_read='0';");
+    }
+} else {
+    echo "No need to update user_notify table";
+}
+
 ?>
 
 <!DOCTYPE html>
