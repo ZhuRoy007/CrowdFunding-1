@@ -38,11 +38,6 @@ if ($user_name == "" || $project_id == null) {
             $project = mysqli_query($con, "SELECT * FROM project  NATURAL JOIN own  NATURAL JOIN user WHERE project.project_id = '{$project_id}';");
             $amount = mysqli_query($con, "SELECT sum(amount) AS amount FROM sponsor  WHERE project_id =  '{$project_id}';");
 
-            //            if (!$detail = mysqli_fetch_array(mysqli_query($con, "SELECT * FROM product WHERE product.pname = '{$itemname}' AND pstatus='available'"))) {
-            //                header("Location:unavailable.php");
-            //                exit;
-            //            }
-
             $row = mysqli_fetch_array($project);
             $amount = mysqli_fetch_array($amount);
 
@@ -74,28 +69,34 @@ if ($user_name == "" || $project_id == null) {
             echo "<h4>About this project</h4>";
             echo "<br />";
             echo $row['description'];
-            mysqli_close($con);
-            ?>
-            <form style="margin-top: 40px;padding-top: 10px" action="donateResult.php" method="get">
-                <tab style='float: left;margin-top: 25px;height: 50px;font-size: 20px;border-radius: 5px'><h4>Donate</h4></tab>
-                <input type="number"  style="margin-top: 40px;height: 40px;font-size: 20px;border-radius: 5px;margin-left: 20px" required="required">
-                <button type="submit" class="btn btn-primary"
-                        style="width: 50%;margin-top: 40px;margin-left: 20px;height: 50px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen">
+            echo "<br />";
+            echo "<br />";
+            echo "<h4>Sample</h4>";
+            echo "<br />";
+            echo $row['sample'];
+
+            echo "
+            
+            <form style='margin-top: 40px;padding-top: 10px' action='donateResult.php' method='get'>
+                <tab style='float: left;margin-top: 25px;height: 50px;font-size: 20px;border-radius: 5px'><h4>
+                        Donate</h4></tab>
+                <input type='number'
+                       style='margin-top: 40px;height: 40px;font-size: 20px;border-radius: 5px;margin-left: 20px'
+                       name='amount' required='required'>
+                <button type='submit'
+                        style='width: 50%;margin-top: 40px;margin-left: 20px;height: 50px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen'>
                     Donate This
                     Project
                 </button>
+                <input type='hidden' name='project_id' value='$project_id';>'                
             </form>
-            <!--            <a href="startPage.php">-->
-            <!--                <button class="btn btn-primary"-->
-            <!--                        style="width: 100%;margin-top: 20px;height: 50px;font-size: 20px;border-radius: 5px">Back to-->
-            <!--                    Start Page-->
-            <!--                </button>-->
-            <!--            </a>-->
             <br/>
             <br/>
             <h4>Discussions</h4>
             <br/>
-            <br/>
+            <br/>";
+            mysqli_close($con);
+            ?>
         </div>
     </div>
 </div>
