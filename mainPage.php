@@ -8,12 +8,12 @@ session_start();
 mysqli_select_db($con, "crowdfunding");
 
 if (isset($_GET['user_name']) && (isset($_GET['password']))) {
-    $user_name =  mysqli_real_escape_string($con,$_GET['user_name']);
-    $password = mysqli_real_escape_string($con,$_GET['password']);
-    
+    $user_name = mysqli_real_escape_string($con, $_GET['user_name']);
+    $password = mysqli_real_escape_string($con, $_GET['password']);
+
     $check = mysqli_query($con, "SELECT * FROM user WHERE user.user_name='{$user_name}';");
     $row = mysqli_fetch_array($check);
-    if ((!isset($row)) || (password_verify($password,$row['password']))!=1) {
+    if ((!isset($row)) || (password_verify($password, $row['password'])) != 1) {
         $_SESSION["error_info"] = 'Username didn\'t exist or Password didn\'t match!';
         header("Location:Error.php");
         exit;
@@ -24,6 +24,7 @@ if (isset($_GET['user_name']) && (isset($_GET['password']))) {
     header("Location:login.php");
     exit;
 }
+$user_name = $_SESSION["user_name"];
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +45,7 @@ if (isset($_GET['user_name']) && (isset($_GET['password']))) {
         <div class="container" style="width: 800px;margin: 50px auto 50px">
             <?php
             echo "<br />";
-            echo "Welcome: <a href='profile.php' style='text-decoration: none;color: #3c3f41'>" . $_SESSION['user_name'] . "</a>";
+            echo "Welcome: <a href='profile.php?user_id=0' style='text-decoration: none;color: #3c3f41'>" . $_SESSION['user_name'] . "</a>";
             echo "
             <a href=\"newProject.php\">
                 <button class=\"btn btn-primary\"
@@ -52,28 +53,33 @@ if (isset($_GET['user_name']) && (isset($_GET['password']))) {
                 </button>
             </a>";
             ?>
-
-            <form style="margin-top: 40px;padding-top: 10px" action="searchResult.php" method="get">
+            <hr>
+            <form style="margin-top: 10px;padding-top: 10px" action="searchResult.php" method="get">
                 <input type="text"
-                       style="margin-top: 40px;height: 40px;font-size: 20px;border-radius: 5px;margin-left: 20px"
-                       name="keyword">
+                       style="margin-top: 20px;height: 40px;font-size: 20px;border-radius: 5px;width: 100%"
+                       name="keyword"><br/><br/>
                 <button type="submit" class="btn btn-primary"
-                        style="width: 50%;margin-top: 40px;margin-left: 100px;height: 50px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen">
+                        style="float: right;width: 30%;margin-left:20px;height: 30px;font-size: 15px;border-radius: 5px;color: whitesmoke;background-color: forestgreen">
                     Search Project
                 </button>
             </form>
+            <br/>
+            <hr>
+            <?php
 
-            <!--            <form style="margin-top: 0px;padding-top: 10px" action="project.php" method="get">-->
-            <!--                <tab style='float: left;margin-top: 25px;height: 50px;font-size: 20px;border-radius: 5px'><h4>-->
-            <!--                        </h4></tab>-->
-            <!--                <input type="text"-->
-            <!--                       style="margin-top: 40px;height: 40px;font-size: 20px;border-radius: 5px;margin-left: 20px"-->
-            <!--                       required="required">-->
-            <!--                <button type="submit" class="btn btn-primary"-->
-            <!--                        style="width: 50%;margin-top: 40px;margin-left: 20px;height: 50px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen">-->
-            <!--                    Search User-->
-            <!--                </button>-->
-            <!--            </form>-->
+            $user_id = mysqli_fetch_array(mysqli_query($con, "SELECT * FROM user WHERE user_name ='{$user_name}';"));
+            $notification = mysqli_query($con, "SELECT *  FROM user_notify NATURAL JOIN notification  JOIN user on target_id=user.user_id WHERE user_notify.user_id= '{$user_id['user_id']}';");
+            echo "Notifications:<hr>";
+            while ($row = mysqli_fetch_array($notification)) {
+                echo "<br />";
+                echo "<div><a href='profile.php?user_id={$row['target_id']}' style='text-decoration: none;color: #3c3f41'>
+                        {$row['user_name']}
+                            </a>" . " has " . $row['subtype'] . " a " . $row['type'] . " at " . $row['notify_time'];
+                echo "<br />";
+            }
+            echo "<br /><br />";
+            mysqli_close($con);
+            ?>
             <br/>
             <br/>
 

@@ -35,32 +35,61 @@ if ($user_name == "" || $project_id == null) {
         <div class="container" style="width: 800px;margin: 50px auto 50px">
             <?php
             echo "<br />";
-            $project = mysqli_query($con, "SELECT * FROM project  NATURAL JOIN own  NATURAL JOIN user WHERE project.project_id = '{$project_id}';");
+            $project = mysqli_query($con, "SELECT * FROM project  NATURAL JOIN own  NATURAL JOIN user WHERE project.project_id = {$project_id};");
             $amount = mysqli_query($con, "SELECT sum(amount) AS amount FROM sponsor  WHERE project_id =  '{$project_id}';");
-
             $row = mysqli_fetch_array($project);
             $amount = mysqli_fetch_array($amount);
 
+            $checkOwn = mysqli_query($con, "SELECT * FROM own NATURAL JOIN user WHERE user_name= '{$user_name}' AND project_id='{$project_id}';");
+            $check = mysqli_fetch_array($checkOwn);
+
+
             echo "<br />";
-            echo "Welcome: <a href='profile.php' style='text-decoration: none;color: #3c3f41'>" . $_SESSION['user_name'] . "</a>";
+            echo "Welcome: <a href='profile.php?user_id=0' style='text-decoration: none;color: #3c3f41'>" . $_SESSION['user_name'] . "</a>";
             echo "
-                    <a href=\"mainPage.php\">
-                    <button class=\"btn btn-primary\"
-                        style=\"float:right;width: 20%;margin-top: 0;margin-left:20px;height: 30px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen\">Main Page
+                    <a href='mainPage.php'>
+                    <button class='btn btn-primary'
+                        style='float:right;width: 20%;margin-top: 0;margin-left:20px;height: 30px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen'>Main Page
                     </button>
                     </a>";
+
+            if ($check) {
+                echo "
+                    <a href='update.php?project_id=$project_id'>
+                    <button style='float:right;width: 20%;margin-left:20px;height: 30px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen'>Update project
+                    </button>
+                    </a>
+                    ";
+            } else {
+                echo "
+                    <a href='likeResult.php?project_id=$project_id'>
+                    <button style='float:right;width: 20%;margin-left:20px;height: 30px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen'>like
+                    </button>
+                    </a>
+                    ";
+            }
+
             echo "<br />";
             echo "<div><h4><tab>" . "Project Name" . "</tab></h4></div>";
             echo "<div>
                     <tab style='font-weight: bold;font-size: x-large '>" . $row['project_name'] . "</tab><br /><br />
                     <h4>
                     <tab style='float: left'>" . 'Category' . "</tab>
-                    <tab style='position: absolute;left: 800px'>" . 'Owner' . "</tab>
+                    <tab style='position: absolute;left: 800px'>
+                    " . 'Owner' . "</tab>
                     <tab style='position: absolute;left: 1000px'>" . 'Raised / Goal' . "</tab>
                     <tab style='float: right'>" . 'End time' . "</tab><br /><br />
                     </h4>
-                    <tab style='float: left'>" . $row['category'] . "</tab>
-                    <tab style='position: absolute;left: 800px'>" . $row['user_name'] . "</tab>
+                    <a href='searchResult.php?keyword={$row['category']}' style='text-decoration: none;color: #3c3f41'>
+                    <tab style='float: left'>                    
+                    " . $row['category'] . "
+                    </tab>
+                    </a>
+                    <tab style='position: absolute;left: 800px'>
+                    <a href='profile.php?user_id={$row['user_id']}' style='text-decoration: none;color: #3c3f41'>
+                    " . $row['user_name'] . "
+                    </a>
+                    </tab>
                     <tab style='position: absolute;left: 1000px'>" . $amount['amount'] . " / " . $row['max_fund'] . "</tab>
                     <tab style='float: right'>" . $row['raisingend_time'] . "</tab><br />
                     </div>";
@@ -88,13 +117,32 @@ if ($user_name == "" || $project_id == null) {
                     Donate This
                     Project
                 </button>
-                <input type='hidden' name='project_id' value='$project_id';>'                
+                <input type='hidden' name='project_id' value='$project_id'>'                
             </form>
             <br/>
             <br/>
             <h4>Discussions</h4>
             <br/>
             <br/>";
+
+
+            $discussion = mysqli_query($con, "SELECT user_id, user_name, comment FROM discussion NATURAL JOIN user WHERE project_id = '{$project_id}';");
+
+            while ($row = mysqli_fetch_array($discussion)) {
+                echo "<hr><div><a href='profile.php?user_id=" . $row['user_id'] . "' " . "style='text-decoration: none;color: black;font-weight: bold'>
+                            <tab>" . $row['user_name'] . ":</tab></a>
+                            <tab>" . $row['comment'] . "</tab>                           
+                            </div>";
+                echo "<br />";
+            }
+
+            echo "<form action='commentResult.php' method='get'><hr><textarea name='comment' style='width: 100%;height: 100px;border-radius: 5px'></textarea>
+                    <input type='hidden' name='project_id' value='$project_id'>
+                    <button type='submit'
+                        style='float:right;width: 20%;margin-top: 10px;bottom:50px;height: 40px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen'>
+                       comment
+                    </button></form>
+            <br /><br /><br /><br />";
             mysqli_close($con);
             ?>
         </div>

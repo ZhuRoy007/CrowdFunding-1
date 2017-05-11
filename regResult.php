@@ -10,7 +10,17 @@ if (isset($_GET['user_name']) && (isset($_GET['password'])) && (isset($_GET['ema
     $password = mysqli_real_escape_string($con,$_GET['password']);
     $email = mysqli_real_escape_string($con,$_GET['email']);
     $emailSafe = filter_var($email, FILTER_SANITIZE_EMAIL);
+    if ($emailSafe == false) {
+        $_SESSION["error_info"] = 'Invalid Email address';
+        header("Location:Error.php");
+        exit;
+    }
     $credit_card = filter_var($_GET['credit_card'],FILTER_VALIDATE_INT);
+    if ($credit_card==false) {
+        $_SESSION["error_info"] = 'Invalid Credit Card';
+        header("Location:Error.php");
+        exit;
+    }
 } else {
     header("Location:login.php");
     exit;
@@ -23,8 +33,12 @@ if (mysqli_fetch_array($check)) {
     exit;
 }
 $en_pwd = password_hash($password,PASSWORD_DEFAULT);
-$ins = mysqli_query($con, "INSERT INTO crowdfunding.user (user_name, emailSafe, credit_card,`password`) VALUES ('{$user_name}', '{$email}','{$credit_card}','{$en_pwd}');");
-
+$ins = mysqli_query($con, "INSERT INTO crowdfunding.user (user_name, email, credit_card,`password`) VALUES ('{$user_name}', '{$emailSafe}','{$credit_card}','{$en_pwd}');");
+    if ($ins==false) {
+         $_SESSION["error_info"] = 'insert failed';
+         header("Location:Error.php");
+         exit;
+        }
 ?>
 
 <!DOCTYPE html>
