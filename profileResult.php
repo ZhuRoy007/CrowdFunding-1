@@ -12,11 +12,10 @@ if ($user_name == "") {
     header("Location:login.php");
     exit;
 }
-
-$interest = $_GET['interest'];
-$hometown = $_GET['hometown'];
-$address = $_GET['address'];
-$contact = $_GET['contact'];
+$interest = mysqli_real_escape_string($con,$_GET['interest']);
+$hometown = mysqli_real_escape_string($con,$_GET['hometown']);
+$address = mysqli_real_escape_string($con,$_GET['address']);
+$contact = mysqli_real_escape_string($con,$_GET['contact']);
 
 $upd = mysqli_query($con, "UPDATE crowdfunding.user SET interest ='{$interest}', hometown ='{$hometown}', address ='{$address}', contact ='{$contact}' WHERE user_name ='{$user_name}';");
 
