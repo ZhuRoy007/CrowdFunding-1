@@ -88,13 +88,32 @@ if ($user_name == "" || $project_id == null) {
                     Donate This
                     Project
                 </button>
-                <input type='hidden' name='project_id' value='$project_id';>'                
+                <input type='hidden' name='project_id' value='$project_id'>'                
             </form>
             <br/>
             <br/>
             <h4>Discussions</h4>
             <br/>
             <br/>";
+
+
+            $discussion = mysqli_query($con, "SELECT user_id, user_name, comment FROM discussion NATURAL JOIN user WHERE project_id = '{$project_id}';");
+
+            while ($row = mysqli_fetch_array($discussion)) {
+                echo "<hr><div><a href='user.php?user_id=" . $row['user_id'] . "' " . "style='text-decoration: none;color: black;font-weight: bold'>
+                            <tab>" . $row['user_name'] . ":</tab></a>
+                            <tab>" . $row['comment'] . "</tab>                           
+                            </div>";
+                echo "<br />";
+            }
+
+            echo "<form action='commentResult.php' method='get'><hr><textarea name='comment' style='width: 100%;height: 100px;border-radius: 5px'></textarea>
+                    <input type='hidden' name='project_id' value='$project_id'>
+                    <button type='submit'
+                        style='float:right;width: 20%;margin-top: 10px;bottom:50px;height: 40px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen'>
+                       comment
+                    </button></form>
+            <br /><br /><br /><br />";
             mysqli_close($con);
             ?>
         </div>
