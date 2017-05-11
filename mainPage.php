@@ -67,12 +67,17 @@ $user_name = $_SESSION["user_name"];
             <hr>
             <?php
 
-            $notification = mysqli_query($con, "SELECT *  FROM user_notify NATURAL JOIN notification NATURAL JOIN user WHERE user_name = '{$user_name}';");
-
+            $user_id = mysqli_fetch_array(mysqli_query($con, "SELECT * FROM user WHERE user_name ='{$user_name}';"));
+            $notification = mysqli_query($con, "SELECT *  FROM user_notify NATURAL JOIN notification  JOIN user on target_id=user.user_id WHERE user_notify.user_id= '{$user_id['user_id']}';");
+            echo "Notifications:<hr>";
             while ($row = mysqli_fetch_array($notification)) {
-                echo "<hr><div>{$row['user_name']}" . " has " . $row['subtype'] . " a " . $row['type'] . " at " . $row['notify_time'];
-                echo "<br /><br />";
+                echo "<br />";
+                echo "<div><a href='profile.php?user_id={$row['target_id']}' style='text-decoration: none;color: #3c3f41'>
+                        {$row['user_name']}
+                            </a>" . " has " . $row['subtype'] . " a " . $row['type'] . " at " . $row['notify_time'];
+
             }
+            echo "<br />";echo "<br />";
             mysqli_close($con);
             ?>
             <br/>
