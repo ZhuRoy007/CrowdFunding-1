@@ -61,12 +61,13 @@ mysqli_query($con, "INSERT INTO notification (type, subtype, target_id, message,
     values('project', 'create', {$user['user_id']},'$notify_message' , now());");
 
 $notify_id = mysqli_query($con, "SELECT notify_id FROM notification WHERE message = '{$notify_message}';");
+$notify_id = mysqli_fetch_array($notify_id);
 
 $who_followed = mysqli_query($con, "SELECT user_id from follow WHERE followed_id='{$user['user_id']}}';");
 if (mysqli_num_rows($who_followed) > 0) {
     // output data of each row
     while($row = mysqli_fetch_assoc($who_followed)) {
-        mysqli_query($con, "INSERT INTO user_notify SET user_id  ={$row},notify_id ={$notify_id},if_read='0';");
+        mysqli_query($con, "INSERT INTO user_notify SET user_id  ={$row['user_id']},notify_id ={$notify_id['notify_id']},if_read='0';");
     }
 } else {
    echo "No need to update user_notify table";
