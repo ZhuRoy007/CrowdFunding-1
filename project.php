@@ -35,11 +35,11 @@ if ($user_name == "" || $project_id == null) {
         <div class="container" style="width: 800px;margin: 50px auto 50px">
             <?php
             echo "<br />";
-            $project = mysqli_query($con, "SELECT * FROM project  NATURAL JOIN own  NATURAL JOIN user WHERE project.project_id = '{$project_id}';");
+            $project = mysqli_query($con, "SELECT * FROM project  NATURAL JOIN own  NATURAL JOIN user WHERE project.project_id = {$project_id};");
             $amount = mysqli_query($con, "SELECT sum(amount) AS amount FROM sponsor  WHERE project_id =  '{$project_id}';");
-
             $row = mysqli_fetch_array($project);
             $amount = mysqli_fetch_array($amount);
+            $checkOwn = mysqli_query($con, "SELECT * FROM own WHERE user_id= {$row['user_id']} AND project_id={$project_id};");
 
             echo "<br />";
             echo "Welcome: <a href='profile.php?user_id=0' style='text-decoration: none;color: #3c3f41'>" . $_SESSION['user_name'] . "</a>";

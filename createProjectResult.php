@@ -46,7 +46,7 @@ projectend_time ='{$projectend_time}',
 if_approved = 0;");
 
 $checkPro = mysqli_query($con, "SELECT project_id FROM project WHERE project_name = '{$project_name}';");
-$checkUser = mysqli_query($con, "SELECT user_id FROM user WHERE user_name = '{$user_name}';");
+$checkUser = mysqli_query($con, "SELECT * FROM user WHERE user_name = '{$user_name}';");
 
 $project = mysqli_fetch_array($checkPro);
 $user = mysqli_fetch_array($checkUser);
@@ -55,10 +55,10 @@ mysqli_query($con, "INSERT INTO own SET user_id  ={$user['user_id']},project_id 
 
 /*Insert informatin to Table: Notification*/
 /*Define: type has categories: 1,user 2,project.   user has subtype:1,like 2,new 3.donate   project has 1.update 2.create 3.like  */
-$notify_message= $user." has created a new project: ".$project_name."at ".now();                //
-$insert_notification="INSERT INTO notification (type, subtype, target_id, message, notify_time)
-    values('project', 'create', $user, $notify_message, now())" ;
-mysqli_query($con, $insert_notification);
+$notify_message = $user['user_name'] . " has created a new project: " . $project_name . " at " . date("Y-m-d H:i:s");
+$notify_message = (string)$notify_message;
+mysqli_query($con, "INSERT INTO notification (type, subtype, target_id, message, notify_time)
+    values('project', 'create', {$user['user_id']},'$notify_message' , now());");
 ?>
 
 <!DOCTYPE html>
@@ -99,9 +99,5 @@ mysqli_query($con, $insert_notification);
     </div>
 
 </div>
-
-<?php
-
-?>
 </body>
 </html>
