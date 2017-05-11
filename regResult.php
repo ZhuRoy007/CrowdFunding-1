@@ -21,8 +21,8 @@ if (mysqli_fetch_array($check)) {
     header("Location:userNameError.php");
     exit;
 }
-
-$ins = mysqli_query($con, "INSERT INTO crowdfunding.user (user_name, email, credit_card,`password`) VALUES ('{$user_name}', '{$email}','{$credit_card}','{$password}');");
+$en_pwd = password_hash($password,PASSWORD_DEFAULT);
+$ins = mysqli_query($con, "INSERT INTO crowdfunding.user (user_name, email, credit_card,`password`) VALUES ('{$user_name}', '{$email}','{$credit_card}','{$en_pwd}');");
 
 ?>
 
