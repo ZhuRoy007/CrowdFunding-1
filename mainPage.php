@@ -75,9 +75,9 @@ $user_name = $_SESSION["user_name"];
                 echo "<div><a href='profile.php?user_id={$row['target_id']}' style='text-decoration: none;color: #3c3f41'>
                         {$row['user_name']}
                             </a>" . " has " . $row['subtype'] . " a " . $row['type'] . " at " . $row['notify_time'];
-
+                echo "<br />";
             }
-            echo "<br />";echo "<br />";
+            echo "<br /><br />";
             mysqli_close($con);
             ?>
             <br/>
