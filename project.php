@@ -79,12 +79,21 @@ if ($user_name == "" || $project_id == null) {
                     <tab style='font-weight: bold;font-size: x-large '>" . $row['project_name'] . "</tab><br /><br />
                     <h4>
                     <tab style='float: left'>" . 'Category' . "</tab>
-                    <tab style='position: absolute;left: 800px'>" . 'Owner' . "</tab>
+                    <tab style='position: absolute;left: 800px'>
+                    " . 'Owner' . "</tab>
                     <tab style='position: absolute;left: 1000px'>" . 'Raised / Goal' . "</tab>
                     <tab style='float: right'>" . 'End time' . "</tab><br /><br />
                     </h4>
-                    <tab style='float: left'>" . $row['category'] . "</tab>
-                    <tab style='position: absolute;left: 800px'>" . $row['user_name'] . "</tab>
+                    <a href='searchResult.php?keyword={$row['category']}' style='text-decoration: none;color: #3c3f41'>
+                    <tab style='float: left'>                    
+                    " . $row['category'] . "
+                    </tab>
+                    </a>
+                    <tab style='position: absolute;left: 800px'>
+                    <a href='profile.php?user_id={$row['user_id']}' style='text-decoration: none;color: #3c3f41'>
+                    " . $row['user_name'] . "
+                    </a>
+                    </tab>
                     <tab style='position: absolute;left: 1000px'>" . $amount['amount'] . " / " . $row['max_fund'] . "</tab>
                     <tab style='float: right'>" . $row['raisingend_time'] . "</tab><br />
                     </div>";
