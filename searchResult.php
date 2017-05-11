@@ -7,7 +7,7 @@ mysqli_select_db($con, "crowdfunding");
 session_start();
 
 $user_name = $_SESSION["user_name"];
-$keyword = $_GET['keyword'];
+$keyword = mysqli_real_escape_string($con,$_GET['keyword']);
 
 if ($user_name == "") {
     header("Location:login.php");

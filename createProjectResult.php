@@ -52,6 +52,13 @@ $project = mysqli_fetch_array($checkPro);
 $user = mysqli_fetch_array($checkUser);
 
 mysqli_query($con, "INSERT INTO own SET user_id  ={$user['user_id']},project_id ={$project['project_id']};");
+
+/*Insert informatin to Table: Notification*/
+/*Define: type has categories: 1,user 2,project.   user has subtype:1,like 2,new 3.donate   project has 1.update 2.create 3.like  */
+$notify_message= $user." has created a new project: ".$project_name."at ".now();                //
+$insert_notification="INSERT INTO notification (type, subtype, target_id, message, notify_time)
+    values('project', 'create', $user, $notify_message, now())" ;
+mysqli_query($con, $insert_notification);
 ?>
 
 <!DOCTYPE html>
