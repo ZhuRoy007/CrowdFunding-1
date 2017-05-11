@@ -55,7 +55,7 @@ if ($isSelf) {
     </a>";
 } else {
     echo "
-    <a href='followResult.php'>      
+    <a href='followResult.php?user_id=$user_id'>      
         <button class='btn btn-primary'
             style='float:right;width: 30%;margin-left:20px;height: 30px;font-size: 15px;border-radius: 5px;color: whitesmoke;background-color: forestgreen'>Follow
     </button>
