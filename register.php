@@ -70,7 +70,8 @@
             document.getElementById("sign").innerHTML ='Inconsistent Passwords';
             return false;
         } else {
-//            document.getElementById("password").innerHTML ='md5';
+            document.getElementById("sign").innerHTML ='success';
+           
             return true;
         }
     }

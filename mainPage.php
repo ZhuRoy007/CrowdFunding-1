@@ -7,16 +7,17 @@ session_start();
 
 mysqli_select_db($con, "crowdfunding");
 
-if (isset($_GET['user_name']) && (isset($_GET['password']))) {
+if (isset($_GET['user_name']) && isset($_GET['password'])) {
+
     $user_name = $_GET['user_name'];
     $password = $_GET['password'];
-
+    
     $check = mysqli_query($con, "SELECT * FROM user WHERE user.user_name='{$user_name}';");
     $row = mysqli_fetch_array($check);
-
-    if ((!isset($row)) || ($row['password'] != $password)) {
+    if ((!isset($row)) || (password_verify($password,$row['password']))!=1) {
         $_SESSION["error_info"] = 'Username didn\'t exist or Password didn\'t match!';
         header("Location:Error.php");
+        exit;
     }
     $_SESSION["user_name"] = $user_name;
     $_SESSION["logged_in"] = true;
