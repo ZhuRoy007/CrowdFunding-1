@@ -42,7 +42,7 @@ $project_name = mysqli_fetch_array(mysqli_query($con, "SELECT project_name FROM 
 $notify_message = $user_name. " liked a project: " . $project_name['project_name'] . " at " . date("Y-m-d H:i:s");
 $notify_message = (string)$notify_message;
 mysqli_query($con, "INSERT INTO notification (type, subtype, target_id, message, notify_time)
-    values('user', 'liked', {$project_id},'$notify_message' , now());");
+    values('user', 'liked', '{$row['user_id']}','$notify_message' , now());");
 
 $notify_id = mysqli_query($con, "SELECT notify_id FROM notification WHERE message = '{$notify_message}';");
 $notify_id = mysqli_fetch_array($notify_id);

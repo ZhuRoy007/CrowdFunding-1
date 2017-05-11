@@ -31,14 +31,14 @@ if (!isset($user_id) || !isset($row)) {
 }
 
 $insert = mysqli_query($con, "INSERT INTO follow SET 
-user_id  ={$user_id},followed_id={$row['user_id']};");
+user_id  ={$row['user_id']},followed_id={$user_id};");
 
 $followed_name = mysqli_fetch_array(mysqli_query($con, "SELECT user_name FROM user WHERE user_id='{$user_id}';"));
 
 $notify_message = $user_name. " has followed " . $followed_name['user_name'] . " at " . date("Y-m-d H:i:s");
 $notify_message = (string)$notify_message;
 mysqli_query($con, "INSERT INTO notification (type, subtype, target_id, message, notify_time)
-    values('user', 'followed', '$user_id','$notify_message' , now());");
+    values('user', 'followed', '{$row['user_id']}','$notify_message' , now());");
 
 $notify_id = mysqli_query($con, "SELECT notify_id FROM notification WHERE message = '{$notify_message}';");
 $notify_id = mysqli_fetch_array($notify_id);

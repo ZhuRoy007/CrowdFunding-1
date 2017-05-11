@@ -55,11 +55,7 @@ if ($user_name == "" || $project_id == null) {
 
             if ($check) {
                 echo "
-                    <a href='finishResult.php'>
-                    <button style='float:right;width: 20%;margin-left:20px;height: 30px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: firebrick'>Finish project
-                    </button>
-                    </a>
-                    <a href='update.php'>
+                    <a href='update.php?project_id=$project_id'>
                     <button style='float:right;width: 20%;margin-left:20px;height: 30px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen'>Update project
                     </button>
                     </a>
