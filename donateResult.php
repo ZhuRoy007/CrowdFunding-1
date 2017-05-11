@@ -49,24 +49,27 @@ if_charged = 0;");
     </div>
     <div style="width: 400px;height: 450px;background-color: #c6c6c6;border-radius: 10px;margin: 100px auto auto;">
         <div class="container" style="width: 350px;height: 300px;margin: 50px auto auto">
-            <form style="margin-top: 40px;padding-top: 10px" method="post" action="mainPage.php">
-                <div class="form-group" align="center" style="margin: 50px auto auto">
-                    <label style="font-size: 24px;color:#545657;padding-top: 8px;padding-left: 0;">
-                        <h4 style="color: #545657;line-height: 50px;margin: 0" align="center">Success</h4>
-                    </label>
-                </div>
-                <div class="form-group" align="center" style="margin: 50px auto auto">
-                    <label style="font-size: 24px;color:#545657;padding-top: 8px;padding-left: 0;">
-                        <h5 style="color: #545657;line-height: 50px;margin: 0" align="center">Thank you, you've
-                            donated the project!</h5>
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-primary"
-                        style="width: 100%;margin-top: 102px;height: 50px;font-size: 20px;border-radius: 5px">Back to
-                    Main Page
-                </button>
 
-            </form>
+            <?php echo "
+            <form style = 'margin-top: 40px;padding-top: 10px' method = 'get' action = 'project.php' >
+                <div class='form-group' align = 'center' style = 'margin: 50px auto auto' >
+                    <label style = 'font-size: 24px;color:#545657;padding-top: 8px;padding-left: 0;' >
+                        <h4 style = 'color: #545657;line-height: 50px;margin: 0' align = 'center' > Success</h4 >
+                    </label >
+                </div >
+                <div class='form-group' align = 'center' style = 'margin: 50px auto auto' >
+                    <label style = 'font-size: 24px;color:#545657;padding-top: 8px;padding-left: 0;' >
+                        <h5 style = 'color: #545657;line-height: 50px;margin: 0' align = 'center' > Thank you, you've
+                            donated the project!</h5 >
+                    </label >
+                </div >
+                <input type='hidden' name='project_id' value='$project_id'>
+                <button type = 'submit' class='btn btn-primary'
+                        style = 'width: 100%;margin-top: 102px;height: 50px;font-size: 20px;border-radius: 5px' > Back to project Page
+            </button >
+
+            </form >";
+            ?>
         </div>
     </div>
 
