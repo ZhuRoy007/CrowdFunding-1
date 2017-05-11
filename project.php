@@ -66,7 +66,7 @@ if ($user_name == "" || $project_id == null) {
                     ";
             } else {
                 echo "
-                    <a href='likeResult.php'>
+                    <a href='likeResult.php?project_id=$project_id'>
                     <button style='float:right;width: 20%;margin-left:20px;height: 30px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen'>like
                     </button>
                     </a>
