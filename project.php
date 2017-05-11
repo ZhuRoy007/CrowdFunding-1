@@ -39,16 +39,40 @@ if ($user_name == "" || $project_id == null) {
             $amount = mysqli_query($con, "SELECT sum(amount) AS amount FROM sponsor  WHERE project_id =  '{$project_id}';");
             $row = mysqli_fetch_array($project);
             $amount = mysqli_fetch_array($amount);
-            $checkOwn = mysqli_query($con, "SELECT * FROM own WHERE user_id= {$row['user_id']} AND project_id={$project_id};");
+
+            $checkOwn = mysqli_query($con, "SELECT * FROM own NATURAL JOIN user WHERE user_name= '{$user_name}' AND project_id='{$project_id}';");
+            $check = mysqli_fetch_array($checkOwn);
+
 
             echo "<br />";
             echo "Welcome: <a href='profile.php?user_id=0' style='text-decoration: none;color: #3c3f41'>" . $_SESSION['user_name'] . "</a>";
             echo "
-                    <a href=\"mainPage.php\">
-                    <button class=\"btn btn-primary\"
-                        style=\"float:right;width: 20%;margin-top: 0;margin-left:20px;height: 30px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen\">Main Page
+                    <a href='mainPage.php'>
+                    <button class='btn btn-primary'
+                        style='float:right;width: 20%;margin-top: 0;margin-left:20px;height: 30px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen'>Main Page
                     </button>
                     </a>";
+
+            if ($check) {
+                echo "
+                    <a href='finishResult.php'>
+                    <button style='float:right;width: 20%;margin-left:20px;height: 30px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: firebrick'>Finish project
+                    </button>
+                    </a>
+                    <a href='update.php'>
+                    <button style='float:right;width: 20%;margin-left:20px;height: 30px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen'>Update project
+                    </button>
+                    </a>
+                    ";
+            } else {
+                echo "
+                    <a href='likeResult.php'>
+                    <button style='float:right;width: 20%;margin-left:20px;height: 30px;font-size: 20px;border-radius: 5px;color: whitesmoke;background-color: forestgreen'>like
+                    </button>
+                    </a>
+                    ";
+            }
+
             echo "<br />";
             echo "<div><h4><tab>" . "Project Name" . "</tab></h4></div>";
             echo "<div>
