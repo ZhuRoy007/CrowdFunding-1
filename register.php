@@ -70,10 +70,8 @@
             document.getElementById("sign").innerHTML ='Inconsistent Passwords';
             return false;
         } else {
-//            document.getElementById("password").innerHTML ='md5';
-            <?php
-            $password_en=password_hash(password,PASSWORD_DEFAULT);
-            ?>
+            document.getElementById("sign").innerHTML ='success';
+           
             return true;
         }
     }
