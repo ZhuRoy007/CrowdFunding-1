@@ -15,7 +15,7 @@ if ($user_name == "") {
 
 $project_name = $_GET['project_name'];
 $category = $_GET['category'];
-$description = $_GET['description'];
+$description = htmlentities($_GET['description'], ENT_QUOTES, 'UTF-8');
 $sample = $_GET['sample'];
 $min_fund = $_GET['min_fund'];
 $max_fund = $_GET['max_fund'];

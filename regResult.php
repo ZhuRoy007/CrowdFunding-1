@@ -6,10 +6,11 @@ if (!$con) {
 mysqli_select_db($con, "crowdfunding");
 
 if (isset($_GET['user_name']) && (isset($_GET['password'])) && (isset($_GET['email'])) && (isset($_GET['credit_card']))) {
-    $user_name = $_GET['user_name'];
-    $password = $_GET['password'];
-    $email = $_GET['email'];
-    $credit_card = $_GET['credit_card'];
+    $user_name = mysqli_real_escape_string($con,$_GET['user_name']);
+    $password = mysqli_real_escape_string($con,$_GET['password']);
+    $email = mysqli_real_escape_string($con,$_GET['email']);
+    $emailSafe = filter_var($email, FILTER_SANITIZE_EMAIL);
+    $credit_card = filter_var($_GET['credit_card'],FILTER_VALIDATE_INT);
 } else {
     header("Location:login.php");
     exit;
@@ -22,7 +23,7 @@ if (mysqli_fetch_array($check)) {
     exit;
 }
 $en_pwd = password_hash($password,PASSWORD_DEFAULT);
-$ins = mysqli_query($con, "INSERT INTO crowdfunding.user (user_name, email, credit_card,`password`) VALUES ('{$user_name}', '{$email}','{$credit_card}','{$en_pwd}');");
+$ins = mysqli_query($con, "INSERT INTO crowdfunding.user (user_name, emailSafe, credit_card,`password`) VALUES ('{$user_name}', '{$email}','{$credit_card}','{$en_pwd}');");
 
 ?>
 
