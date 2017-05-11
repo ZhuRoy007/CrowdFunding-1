@@ -42,11 +42,6 @@ if_charged = 0;");
 <body style="background-color: #3c3f41;font-family: 'Microsoft YaHei UI Light',sans-serif">
 
 <div class="container">
-    <div class="container" style="width: 400px;margin: auto;">
-        <div style="height: 50px;margin-top: 50px" align="center">
-
-        </div>
-    </div>
     <div style="width: 400px;height: 450px;background-color: #c6c6c6;border-radius: 10px;margin: 100px auto auto;">
         <div class="container" style="width: 350px;height: 300px;margin: 50px auto auto">
 
@@ -74,9 +69,5 @@ if_charged = 0;");
     </div>
 
 </div>
-
-<?php
-
-?>
 </body>
 </html>

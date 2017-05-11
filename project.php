@@ -42,7 +42,7 @@ if ($user_name == "" || $project_id == null) {
             $amount = mysqli_fetch_array($amount);
 
             echo "<br />";
-            echo "Welcome: <a href='profile.php' style='text-decoration: none;color: #3c3f41'>" . $_SESSION['user_name'] . "</a>";
+            echo "Welcome: <a href='profile.php?user_id=0' style='text-decoration: none;color: #3c3f41'>" . $_SESSION['user_name'] . "</a>";
             echo "
                     <a href=\"mainPage.php\">
                     <button class=\"btn btn-primary\"
@@ -100,7 +100,7 @@ if ($user_name == "" || $project_id == null) {
             $discussion = mysqli_query($con, "SELECT user_id, user_name, comment FROM discussion NATURAL JOIN user WHERE project_id = '{$project_id}';");
 
             while ($row = mysqli_fetch_array($discussion)) {
-                echo "<hr><div><a href='user.php?user_id=" . $row['user_id'] . "' " . "style='text-decoration: none;color: black;font-weight: bold'>
+                echo "<hr><div><a href='profile.php?user_id=" . $row['user_id'] . "' " . "style='text-decoration: none;color: black;font-weight: bold'>
                             <tab>" . $row['user_name'] . ":</tab></a>
                             <tab>" . $row['comment'] . "</tab>                           
                             </div>";
