@@ -30,12 +30,12 @@
                            style="width: 100%;height: 50px;font-size: 18px;margin-top: 10px;border-radius: 5px;text-indent:10px">
                 </div>
                 <button type="submit" class="btn btn-primary"
-                        style="width: 100%;margin-top: 40px;height: 50px;font-size: 20px;border-radius: 5px">login
+                        style="width: 100%;margin-top: 40px;height: 50px;font-size: 20px;border-radius: 5px">Login
                 </button>
             </form>
             <a href="register.php">
                 <button class="btn btn-primary"
-                        style="width: 100%;margin-top: 10px;height: 50px;font-size: 20px;border-radius: 5px">register
+                        style="width: 100%;margin-top: 10px;height: 50px;font-size: 20px;border-radius: 5px">Register
                 </button>
             </a>
         </div>

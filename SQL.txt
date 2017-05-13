@@ -1,0 +1,52 @@
+DROP TRIGGER IF EXISTS add_fund;
+CREATE TRIGGER add_fund
+AFTER INSERT ON crowdfunding.sponsor
+FOR EACH ROW
+  BEGIN
+    IF ((SELECT sum(amount)
+         FROM crowdfunding.sponsor
+         WHERE project_id = new.project_id
+        ) >= (SELECT max_fund
+              FROM crowdfunding.project
+              WHERE project_id = new.project_id
+        ))
+    THEN
+      UPDATE crowdfunding.project
+      SET if_approved = 1, approved_time = now()
+      WHERE project_id = NEW.project_id;
+    END IF;
+  END;
+
+# DELIMITER $$
+DROP TRIGGER IF EXISTS set_charge;
+CREATE TRIGGER set_charge
+AFTER UPDATE ON project
+FOR EACH ROW
+  BEGIN
+    UPDATE sponsor
+    SET if_charged = 1
+    WHERE project_id = NEW.project_id;
+  END;
+# DELIMITER ;
+
+
+SET GLOBAL EVENT_SCHEDULER = 'on';
+GRANT EVENT ON crowdfunding.* TO 'root'@'localhost';
+DROP EVENT IF EXISTS check_project_timeexpire;
+CREATE EVENT IF NOT EXISTS check_project_timeexpire
+  ON SCHEDULE EVERY 10 SECOND
+DO
+  UPDATE project
+  SET if_approved = 0
+  WHERE project_id IN (
+    SELECT
+      project_id,
+      sum(amount) AS total,
+      min_fund    AS minimum
+    FROM sponsor
+      NATURAL JOIN project
+    WHERE project_id = (SELECT project_id
+                        FROM project
+                        WHERE now() >= raisingend_time AND if_approved IS NULL)
+    GROUP BY project_id
+    HAVING total < minimum);

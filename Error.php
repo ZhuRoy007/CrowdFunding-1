@@ -6,7 +6,7 @@ $error_info = $_SESSION["error_info"];
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Start</title>
+    <title>Error</title>
 </head>
 <body style="background-color: #3c3f41;font-family: 'Microsoft YaHei UI Light',sans-serif">
 
@@ -18,7 +18,7 @@ $error_info = $_SESSION["error_info"];
     </div>
     <div style="width: 400px;height: 450px;background-color: #c6c6c6;border-radius: 10px;margin: 100px auto auto;">
         <div class="container" style="width: 350px;height: 300px;margin: 50px auto auto">
-            <form style="margin-top: 40px;padding-top: 10px" action="login.php" method="post">
+            <form style="margin-top: 40px;padding-top: 10px" method="get">
                 <div class="form-group" align="center" style="margin: 50px auto auto">
                     <label style="font-size: 24px;color:#545657;padding-top: 8px;padding-left: 0;">
                         <h4 style="color: #545657;line-height: 50px;margin: 0" align="center">Error Info</h4>
@@ -29,17 +29,18 @@ $error_info = $_SESSION["error_info"];
                         <h5 style="color: #545657;line-height: 50px;margin: 0" align="center"><?php echo "$error_info"; ?></h5>
                     </label>
                 </div>
-                <button type="submit" class="btn btn-primary"
+                <button onclick="goBack()" type="submit" class="btn btn-primary"
                         style="width: 100%;margin-top: 102px;height: 50px;font-size: 20px;border-radius: 5px">Back
                 </button>
+                <script>
+                    function goBack() {
+                        window.history.go(-1);
+                    }
+                </script>
             </form>
         </div>
     </div>
 
 </div>
-
-<?php
-
-?>
 </body>
 </html>

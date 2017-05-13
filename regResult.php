@@ -6,10 +6,21 @@ if (!$con) {
 mysqli_select_db($con, "crowdfunding");
 
 if (isset($_GET['user_name']) && (isset($_GET['password'])) && (isset($_GET['email'])) && (isset($_GET['credit_card']))) {
-    $user_name = $_GET['user_name'];
-    $password = $_GET['password'];
-    $email = $_GET['email'];
-    $credit_card = $_GET['credit_card'];
+    $user_name = mysqli_real_escape_string($con,$_GET['user_name']);
+    $password = mysqli_real_escape_string($con,$_GET['password']);
+    $email = mysqli_real_escape_string($con,$_GET['email']);
+    $emailSafe = filter_var($email, FILTER_SANITIZE_EMAIL);
+    if ($emailSafe == false) {
+        $_SESSION["error_info"] = 'Invalid Email address';
+        header("Location:Error.php");
+        exit;
+    }
+    $credit_card = filter_var($_GET['credit_card'],FILTER_VALIDATE_INT);
+    if ($credit_card==false) {
+        $_SESSION["error_info"] = 'Invalid Credit Card';
+        header("Location:Error.php");
+        exit;
+    }
 } else {
     header("Location:login.php");
     exit;
@@ -21,9 +32,13 @@ if (mysqli_fetch_array($check)) {
     header("Location:userNameError.php");
     exit;
 }
-
-$ins = mysqli_query($con, "INSERT INTO crowdfunding.user (user_name, email, credit_card,`password`) VALUES ('{$user_name}', '{$email}','{$credit_card}','{$password}');");
-
+$en_pwd = password_hash($password,PASSWORD_DEFAULT);
+$ins = mysqli_query($con, "INSERT INTO crowdfunding.user (user_name, email, credit_card,`password`) VALUES ('{$user_name}', '{$emailSafe}','{$credit_card}','{$en_pwd}');");
+    if ($ins==false) {
+         $_SESSION["error_info"] = 'insert failed';
+         header("Location:Error.php");
+         exit;
+        }
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +62,7 @@ $ins = mysqli_query($con, "INSERT INTO crowdfunding.user (user_name, email, cred
     </div>
     <div style="width: 400px;height: 450px;background-color: #c6c6c6;border-radius: 10px;margin: 100px auto auto;">
         <div class="container" style="width: 350px;height: 300px;margin: 50px auto auto">
-            <form style="margin-top: 40px;padding-top: 10px" method="post">
+            <form style="margin-top: 40px;padding-top: 10px" method="post" action="login.php">
                 <div class="form-group" align="center" style="margin: 50px auto auto">
                     <label style="font-size: 24px;color:#545657;padding-top: 8px;padding-left: 0;">
                         <h4 style="color: #545657;line-height: 50px;margin: 0" align="center">Success</h4>
@@ -58,8 +73,8 @@ $ins = mysqli_query($con, "INSERT INTO crowdfunding.user (user_name, email, cred
                         <h5 style="color: #545657;line-height: 50px;margin: 0" align="center">Congratulations, you've been signed up!</h5>
                     </label>
                 </div>
-                <button onclick="history.go(-1)" type="submit" class="btn btn-primary"
-                        style="width: 100%;margin-top: 102px;height: 50px;font-size: 20px;border-radius: 5px">Back
+                <button type="submit" class="btn btn-primary"
+                        style="width: 100%;margin-top: 102px;height: 50px;font-size: 20px;border-radius: 5px">Back to Login
                 </button>
 
             </form>
